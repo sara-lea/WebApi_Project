@@ -2,7 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MyFirstWebApiSite;
 using NLog.Web;
+using PresidentsApp.Middlewares;
 using Repositories;
+using Repository;
 using Services;
 //sing PresidentsApp.Middlewares;
 
@@ -50,7 +52,7 @@ app.UseAuthorization();
 
 app.UseRatingMiddleware();
 
-//app.UseErrorHandlingMiddleware();
+app.UseErrorHandlingMiddleware();
 
 app.MapControllers();
 

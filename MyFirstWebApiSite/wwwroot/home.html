@@ -3,15 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-    <link href="../Style/User.css" rel="stylesheet"/>
+    <link href="../Style/User.css" rel="stylesheet" />
     <script src="../Scripts/user.js"></script>
+    <script src="/_framework/aspnetcore-browser-refresh.js"></script>
 </head>
 <body style="text-align: center; background-color:aquamarine;color:darkcyan">
     <h1>Home Page</h1>
     <h3 id="result"></h3>
     <br /><br />
     <!--<a href="update.html">עדכון פרטים</a>-->
-    <a href="Products.html">עדכון פרטים</a>
+    <a href="Products.html">לחנות</a>
+    <br/>
+    <a href="update.html">לעדכון פרטי משתמש</a>
     <script>
         document.getElementById("result").innerHTML = JSON.parse(sessionStorage.getItem("user")).firstname + " שלום  ";
     </script>

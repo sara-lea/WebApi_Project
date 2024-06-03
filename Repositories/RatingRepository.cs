@@ -1,15 +1,16 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Entities;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Entities;
 
-namespace Repositories
+namespace Repository
 {
-    public class RatingRepository: IRatingRepository
+    public class RatingRepository : IRatingRepository
     {
         public IConfiguration _configuration { get; }
 
@@ -17,7 +18,6 @@ namespace Repositories
         {
             _configuration = configuration;
         }
-
         public async Task<int> addRating(Rating rating)
         {
 
@@ -38,8 +38,7 @@ namespace Repositories
 
                 return rowsAffected;
             }
+
         }
-
-
     }
 }

@@ -9,7 +9,9 @@ const register = async () => {
             lastname: document.getElementById("lastName").value,
             email: document.getElementById("userName").value,
             password: document.getElementById("password").value
-        }
+    }
+
+
 
         const responsePost = await fetch('api/user/register', {
             method: 'POST',
@@ -22,7 +24,10 @@ const register = async () => {
 
         if (responsePost.ok) {
             window.location.href = "login.html";
-        }
+         }
+        else {
+            alert("אופס, אחד או יותר מן הנתונים שגוי...")
+        } 
 
     //}
     //else {
@@ -31,7 +36,6 @@ const register = async () => {
 }
 
 const login = async () => {
-  debugger
     const userData = {
         email: document.getElementById("userName").value,
         password: document.getElementById("password").value

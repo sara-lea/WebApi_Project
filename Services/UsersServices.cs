@@ -28,6 +28,7 @@ namespace Services
 
         public async Task<User> Register(User user)
         {
+
             if (CheckPassword(user.Password) <= 2)
                 return null;
             return await _userRepository.Register(user);
