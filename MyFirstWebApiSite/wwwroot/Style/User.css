@@ -1,0 +1,48 @@
+﻿body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /*background-image: linear-gradient(to top right, #7abb76, #cfd2d8);*/
+    color: #0e0f0f;
+    font-size: 20px;
+}
+
+.progressStyle {
+    background-image: linear-gradient(-45deg, transparent 33%, rgba(0, 0, 0, .1) 33%, rgba(0,0, 0, .1) 66%, transparent 66%), linear-gradient(top, rgba(255, 255, 255, .25), rgba(0, 0, 0, .25)), linear-gradient(left, #09c, #f44);
+    border-radius: 2px;
+    background-size: 35px 20px, 100% 100%, 100% 100%;
+}
+
+.progressStyle {
+    appearance: none;
+    height: 15px;
+    width: 30%;
+    margin: 10px 0;
+}
+
+    .progressStyle::-webkit-progress-value {
+        background: linear-gradient(to right, #ff0000, #ff6600, #ffcc00, #33cc33);
+    }
+
+    .progressStyle::-webkit-progress-bar {
+        background-color: #f0f0f0;
+    }
+
+.progressStyle {
+    appearance: none;
+    height: 15px;
+    width: 30%;
+    margin: 10px 0;
+}
+
+    .progressStyle::-webkit-progress-value {
+        background: linear-gradient(to right, #ff0000, #ff6600, #ffcc00, #33cc33);
+    }
+
+    .progressStyle::-webkit-progress-bar {
+        background-color: #f0f0f0;
+    }
