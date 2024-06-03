@@ -35,6 +35,7 @@ const getAllProducts = async () => {
             card.querySelector('h1').textContent = product.name;
             card.querySelector('.price').textContent = product.price;
             card.querySelector('.description').textContent = product.description;
+            card.querySelector('.name').textContent = product.name;
             card.querySelector('img').src = '../Images/' + product.imageUrl;
             card.querySelector('button').addEventListener('click', () => addToBasket(product));
 

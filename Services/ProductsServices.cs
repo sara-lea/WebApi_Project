@@ -1,5 +1,6 @@
 ﻿using Entities;
 using Repositories;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,5 +26,10 @@ namespace Services
             return await _productRepository.GetProducts(min, max, description, category);
         }
 
+
+        public async Task<Product> GetProductById(int id)
+        {
+            return await _productRepository.GetProductById(id);
+        }
     }
 }

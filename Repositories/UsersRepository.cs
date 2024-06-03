@@ -32,6 +32,8 @@ namespace Repositories
         {
             return await _UsersContext.Users.Where(user => user.Email == userLogin.Email && user.Password == userLogin.Password).FirstOrDefaultAsync();
         }
+
+
         public async Task<User> Update(int id, User user)
         {
             User userToUpdate = await _UsersContext.Users.FindAsync(id);

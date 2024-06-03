@@ -1,7 +1,7 @@
-﻿html, body {
+﻿/*html, body {
     direction: rtl;
     margin: 0;
-    /*padding: 0;*/
+    padding: 0;
     padding-top: 20px;
 }
 
@@ -53,10 +53,10 @@ p.description{
 .bar::before {
     content: 'החנות שלי';
     color: white;
-    /* display: inline-block; */
+     display: inline-block; 
     position: absolute;
-    /* margin: 0 auto; */
-    /* display: block; */
+     margin: 0 auto; 
+     display: block; 
     top: 8px;
     left: 51%;
     font-family: Helvetica;
@@ -101,7 +101,7 @@ p.description{
     margin: 1px 0 0 0;
     width: 24px;
     height: 21px;
-}
+}a
 
 .BagSummary .Icon .ItemCount {
     overflow: hidden;
@@ -226,10 +226,295 @@ p.description{
     }
 
         .pagination a.active {
-            /*background-color:*/ /*lightseagreen*//*;*/
+            background-color: lightseagreen;
             color: white;
         }
 
         .pagination a:hover:not(.active) {
             background-color: #ddd;
         }
+
+
+
+*/
+
+
+html, body {
+    direction: rtl;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    font-family: 'Arial', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Header */
+header {
+    background: linear-gradient(to right, #008080, #00ced1);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+    header .bar {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    header .BagSummary {
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+    }
+
+    header .Icon {
+        position: relative;
+        background: url('../Images/BagActive.png') no-repeat center;
+        width: 24px;
+        height: 24px;
+        display: block;
+        cursor: pointer;
+    }
+
+    header .ItemCount {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: #ff4444;
+        border-radius: 50%;
+        color: white;
+        padding: 3px 7px;
+        font-size: 12px;
+    }
+
+    header .Checkout {
+        display: flex;
+        align-items: center;
+    }
+
+    header .goToCart {
+        background: #dc3545;
+        padding: 10px 20px;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 0.9em;
+        transition: background 0.3s ease;
+        margin-left: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+        header .goToCart:hover {
+            background: #c82333;
+        }
+
+/* Filters Section */
+#filters {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 80px; /* Adjusted for header height */
+    z-index: 999;
+    height: calc(100vh - 80px);
+    overflow-y: auto;
+    margin: 20px;
+    width: 300px;
+    flex-shrink: 0;
+}
+
+    #filters .ResultCount {
+        margin-bottom: 10px;
+    }
+
+    #filters .filterBreak {
+        margin-bottom: 20px;
+    }
+
+    #filters label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        font-size: 1.1em;
+    }
+
+    #filters input[type="text"],
+    #filters .priceInputText {
+        width: 80%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    #filters button {
+        background: #007bff;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        width: 100%;
+    }
+
+        #filters button:hover {
+            background: #0056b3;
+        }
+
+    #filters .Clear {
+        background: none;
+        border: none;
+        color: #ff8800;
+        cursor: pointer;
+        text-decoration: underline;
+        display: block;
+        margin-bottom: 15px;
+    }
+
+        #filters .Clear:hover {
+            color: #cc7000;
+        }
+
+.priceCurrency {
+    padding: 0 5px;
+}
+
+/*#PoductList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding:5px 20px 20px;*/ /* Adjusted for header height */
+    /*flex-grow: 1;
+    margin-right: 330px;*/ /* To accommodate the filter section */
+/*}*/
+
+#PoductList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 10px 20px 20px; /* Adjust this value to reduce space below the header */
+    flex-grow: 1;
+    margin-right: 330px; /* To accommodate the filter section */
+}
+
+.card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    padding: 20px;
+    width: calc(23% - 40px);
+    text-align: center;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+    .card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transform: translateY(-5px);
+    }
+
+    .card img {
+        border-radius: 10px;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .card h1 {
+        font-size: 1.2em;
+        margin: 10px 0;
+    }
+
+    .card .price {
+        color: grey;
+        font-size: 1em;
+        margin: 5px 0;
+    }
+
+    .card .name,
+    .card .description {
+        color: #555;
+        margin: 5px 0;
+    }
+
+    .card button {
+        border: none;
+        outline: 0;
+        padding: 12px;
+        color: white;
+        background-color: lightseagreen;
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+        font-size: 18px;
+        border-radius: 5px;
+        transition: background 0.3s ease;
+    }
+
+        .card button:hover {
+            opacity: 0.7;
+            background-color: #3cb371;
+        }
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+    .pagination a {
+        color: black;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background 0.3s ease;
+        margin: 0 5px;
+    }
+
+        .pagination a.active {
+            background-color: lightseagreen;
+            color: white;
+        }
+
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+        }
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .card {
+        width: calc(50% - 40px);
+    }
+
+    #filters {
+        width: 100%;
+        height: auto;
+        position: static;
+        margin-bottom: 20px;
+    }
+
+    #PoductList {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        width: calc(100% - 40px);
+    }
+}

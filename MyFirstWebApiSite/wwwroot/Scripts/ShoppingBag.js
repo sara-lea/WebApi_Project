@@ -29,7 +29,7 @@ const drawSelectedProducts = (products) => {
         const row = template.content.cloneNode(true);
         row.querySelector(".price").innerText = item.price * item.quantity;
         row.querySelector(".image").src = '../Images/' + item.imageUrl;
-        row.querySelector(".descriptionColumn").innerText = item.description;
+        row.querySelector(".descriptionColumn").innerText = item.productName;
         row.querySelector(".quantity").innerText = item.quantity
         row.querySelector(".DeleteButton").addEventListener('click', () => { item.quantity = 1; removeFromBasket(item) });
         row.querySelector(".plus").addEventListener('click', () => { addToBasket(item) });
@@ -71,7 +71,6 @@ const addToBasket = (item) => {
 }
 
 const placeOrder = async () => {
-    debugger
     let orderItems = [];
     const productsArray = JSON.parse(sessionStorage.getItem('Basket'));
     productsArray.forEach(p => {

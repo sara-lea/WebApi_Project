@@ -85,7 +85,10 @@ const update = async () => {
         alert("הפרטים עודכנו בהצלחה");
         window.location.href = "login.html";
     }
-    window.location.href = "login.html";
+    else {
+        alert("אחד או יותר מהפרטים אינם תקינים...")
+        
+    }
 }
 
 const checkPassword = async () => {
