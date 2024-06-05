@@ -112,7 +112,7 @@ namespace TestProject
         public async Task UpdateUser_ValidUser_UpdatesUser()
         {
             // Arrange
-            var user = new User { Firstname = "dvori", Lastname = "rottman", Email = "dvori@gmail.com", Password = "password" };
+            var user = new User { Firstname = "original", Lastname = "original", Email = "original@gmail.com", Password = "password" };
             var updatedUser = new User { Firstname = "updated", Lastname = "user", Email = "updated@gmail.com", Password = "newpassword" };
 
             var mockSet = new Mock<DbSet<User>>();

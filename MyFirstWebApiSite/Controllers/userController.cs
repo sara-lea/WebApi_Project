@@ -66,7 +66,7 @@ namespace MyFirstWebApiSite.Controllers
             UserLogin userToLogin = _mapper.Map<userLoginDTO, UserLogin>(userLoginDto);
            
             _logger.LogInformation($"Login attempted with User Name,{userToLogin.Email} and password {userToLogin.Password}");
-            _logger.LogError($"Login attempted with User Name,{userToLogin.Email} and password {userToLogin.Password}");
+            //_logger.LogError($"Login attempted with User Name,{userToLogin.Email} and password {userToLogin.Password}");
             User user = await _userService.Login(userToLogin);
             userDTO userToReturn = _mapper.Map<User, userDTO>(user);
             if (user != null)

@@ -84,7 +84,7 @@ const placeOrder = async () => {
         UserId: JSON.parse(sessionStorage.getItem('user')).userId,
         OrderItems: orderItems,
     }
-
+    alert(orderItemToSend.OrderSum)
     const responsePost = await fetch('api/order', {
 
         method: 'POST',

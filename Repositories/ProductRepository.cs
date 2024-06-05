@@ -21,7 +21,7 @@ namespace Repositories
         public async Task<List<Product>> GetProducts(float? min, float? max,  string? description, int?[] categoryId)
         {
             var query = _ProductContext.Products.Where(product =>
-            (description == null ? (true) : (product.Description.Contains(description)))
+            (description == null ? (true) : (product.ProductName.Contains(description)))
             && ((min == null) ? (true) : (product.Price >= min))
             && ((max == null) ? (true) : (product.Price <= max))
             && ((categoryId.Length == 0) ? (true) : (categoryId.Contains(product.CategoryId))))
