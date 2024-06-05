@@ -126,31 +126,62 @@ const getAllProducts = async () => {
         sessionStorage.removeItem('Basket');
     }
 
-    const filterProducts = async () => {
+    //const filterProducts = async () => {
 
-        const name = document.getElementById('nameSearch').value;
-        const min = document.getElementById('minPrice').value;
-        const max = document.getElementById('maxPrice').value;
-        var categories = '';
-        categoriesArr.forEach(x => categories += `&category=${x}`)
-        const responsePost = await fetch(`api/product?min=${min}&max=${max}&description=${name}${categories}`);
+    //    const name = document.getElementById('nameSearch').value;
+    //    const min = document.getElementById('minPrice').value;
+    //    const max = document.getElementById('maxPrice').value;
+    //    var categories = '';
+    //    categoriesArr.forEach(x => categories += `&category=${x}`)
+    //    const responsePost = await fetch(`api/product?min=${min}&max=${max}&description=${name}${categories}`);
 
-        if (responsePost.ok) {
-            const data = await responsePost.json();
-            document.getElementById('PoductList').replaceChildren();
-            if (data.length != 0) {
-                drawProducts(data);
-            }
-            else {
-                alert("Sorry..... There is no item");
-                document.getElementById('counter').textContent = 0;
-            }
+    //    if (responsePost.ok) {
+    //        const data = await responsePost.json();
+    //        document.getElementById('PoductList').replaceChildren();
+    //        if (data.length != 0) {
+    //            drawProducts(data);
+    //        }
+    //        else {
+    //            alert("Sorry..... There is no item");
+    //            document.getElementById('counter').textContent = 0;
+    //        }
+    //    }
+    //    else {
+    //        alert("Something is wrong with the filter... we are so sorry.");
+
+    //    }
+//}
+const filterProducts = async () => {
+    const name = document.getElementById('nameSearch').value;
+    const min = document.getElementById('minPrice').value;
+    const max = document.getElementById('maxPrice').value;
+    var categories = '';
+    categoriesArr.forEach(x => categories += `&category=${x}`);
+
+    const responsePost = await fetch(`api/product?min=${min}&max=${max}&description=${name}${categories}`);
+
+    const productList = document.getElementById('PoductList');
+    productList.replaceChildren();  // Clear existing items
+
+    if (responsePost.ok) {
+        const data = await responsePost.json();
+
+        if (data.length != 0) {
+            drawProducts(data);
+        } else {
+            const noItemsMessage = document.createElement('p');
+            noItemsMessage.textContent = "Sorry..... There are no items";
+            noItemsMessage.style.textAlign = 'center';
+            productList.appendChild(noItemsMessage);
+            document.getElementById('counter').textContent = 0;
         }
-        else {
-            alert("Something is wrong with the filter... we are so sorry.");
-          
-        }
+    } else {
+        const errorMessage = document.createElement('p');
+        errorMessage.textContent = "Something is wrong with the filter... we are so sorry.";
+        errorMessage.style.textAlign = 'center';
+        productList.appendChild(errorMessage);
     }
+};
 
 
 getAllProducts();

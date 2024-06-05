@@ -22,9 +22,7 @@ namespace Services
             _logger = logger;
         }
 
-
-
-        public async Task<Order> PostOrders(Order order)
+        private async Task<double> checkSum(Order order)
         {
             double order_sum = 0;
 
@@ -33,13 +31,18 @@ namespace Services
                 Product product = await _productService.GetProductById(i.ProductId);
                 order_sum += product.Price * i.Quantity;
             }
-            if (order_sum != order.OrderSum)
-            {
-                _logger.LogError($"user {order.UserId}  tried perchasing with a difffrent price {order.OrderSum} instead of {order_sum}");
-                _logger.LogInformation($"user {order.UserId}  tried perchasing with a difffrent price {order.OrderSum} instead of {order_sum}");
-            }
-            order.OrderSum = order_sum;
+            return order_sum;
+        }
+
+        public async Task<Order> PostOrders(Order order)
+        {
+            double sum =await checkSum(order);
+            if(sum!=order.OrderSum)
+                _logger.LogError($"user {order.UserId}  tried perchasing with a difffrent price {order.OrderSum} instead of {sum}");
+
+            order.OrderSum = sum;
             return await _ordersRepository.PostOrders(order);
+         
         }
     }
 }

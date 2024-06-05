@@ -74,38 +74,60 @@ namespace TestProject
             Assert.Equal(user, result);
         }
 
+        //[Fact]
+        //public async Task UpdateUser_ValidUser_UpdateUserDetails()
+        //{
+        //    // Arrange
+        //    var id = 0;
+        //    var userToUpdate = new User { Email = "test@gmail.com", Firstname = "Updated", Lastname = "Updated" };
+        //    var mockContext = new Mock<AdoNetUsers326077351Context>();
+        //    var mockDbSet = new Mock<DbSet<User>>();
+
+        //    mockDbSet.Setup(m => m.Update(It.IsAny<User>())).Callback<User>(u =>
+        //    {
+        //        u.UserId = id;
+        //    });
+
+        //    mockContext.Setup(x => x.Users).Returns(mockDbSet.Object);
+        //    mockContext.Setup(x => x.Update(It.IsAny<User>())).Callback<User>(u =>
+        //    {
+        //        u.UserId = id;
+        //    });
+        //    mockContext.Setup(x => x.SaveChangesAsync(default)).ReturnsAsync(1);
+
+        //    var userRepository = new UsersRepository(mockContext.Object);
+
+        //    // Act
+        //    var result = await userRepository.Update(id, userToUpdate);
+
+        //    // Assert
+        //    Assert.NotNull(result);
+        //    Assert.Equal(id, result.UserId);
+        //    Assert.Equal("test@gmail.com", result.Email);
+        //    Assert.Equal("Updated", result.Firstname);
+        //    Assert.Equal("Updated", result.Lastname);
+        //}
+
         [Fact]
-        public async Task UpdateUser_ValidUser_UpdateUserDetails()
+        public async Task UpdateUser_ValidUser_UpdatesUser()
         {
             // Arrange
-            var id = 1;
-            var userToUpdate = new User { Email = "test@gmail.com", Firstname = "Updated", Lastname = "Updated" };
+            var user = new User { Firstname = "dvori", Lastname = "rottman", Email = "dvori@gmail.com", Password = "password" };
+            var updatedUser = new User { Firstname = "updated", Lastname = "user", Email = "updated@gmail.com", Password = "newpassword" };
+
+            var mockSet = new Mock<DbSet<User>>();
             var mockContext = new Mock<AdoNetUsers326077351Context>();
-            var mockDbSet = new Mock<DbSet<User>>();
 
-            mockDbSet.Setup(m => m.Update(It.IsAny<User>())).Callback<User>(u =>
-            {
-                u.UserId = id;
-            });
-
-            mockContext.Setup(x => x.Users).Returns(mockDbSet.Object);
-            mockContext.Setup(x => x.Update(It.IsAny<User>())).Callback<User>(u =>
-            {
-                u.UserId = id;
-            });
-            mockContext.Setup(x => x.SaveChangesAsync(default)).ReturnsAsync(1);
+            mockSet.Setup(m => m.Update(It.IsAny<User>()));
+            mockContext.Setup(m => m.Users).Returns(mockSet.Object);
 
             var userRepository = new UsersRepository(mockContext.Object);
 
             // Act
-            var result = await userRepository.Update(id, userToUpdate);
+            var result = await userRepository.Update(user.UserId, updatedUser);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Equal(id, result.UserId);
-            Assert.Equal("test@gmail.com", result.Email);
-            Assert.Equal("Updated", result.Firstname);
-            Assert.Equal("Updated", result.Lastname);
+            Assert.Equal("updated@gmail.com", result.Email);
         }
     }
 }

@@ -1,39 +1,44 @@
 ﻿
 const register = async () => {
-    const strength = checkPassword();
-   /* if (strength > 3) {*/
 
+    const strength = await checkPassword();
+
+    if (strength >= 3) {
 
         const userData = {
             firstname: document.getElementById("firstName").value,
             lastname: document.getElementById("lastName").value,
             email: document.getElementById("userName").value,
             password: document.getElementById("password").value
-    }
-
-
-
-        const responsePost = await fetch('api/user/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(userData)
-        });
-        const dataPost = await responsePost.json();
-
-        if (responsePost.ok) {
-            window.location.href = "login.html";
-         }
+        }
+        if (userData.firstname == '' || userData.lastname == '' || userData.email == '' || userData.password == '') {
+            alert('כל השדות חובה!!')
+        }
         else {
-            alert("אופס, אחד או יותר מן הנתונים שגוי...")
-        } 
+        
+            const responsePost = await fetch('api/user/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            });
+            const dataPost = await responsePost.json();
 
-    //}
-    //else {
-    //    alert("password is not strong enough");
-    //}
+            if (responsePost.ok) {
+                window.location.href = "login.html";
+             }
+            else {
+                alert("אופס, אחד או יותר מן הנתונים שגוי...")
+            }
+        }
+
+    }
+    else {
+      alert(":( הסיסמא לא מספיק חזקה");
+    }
 }
+
 
 const login = async () => {
     const userData = {
@@ -61,38 +66,49 @@ const login = async () => {
 }
 
 const update = async () => {
-    
-    const userData = {
-        FirstName: document.getElementById("firstName").value,
-        LastName: document.getElementById("lastName").value,
-       Email: document.getElementById("userName").value,
-        Password: document.getElementById("password").value,
-        id:JSON.parse(sessionStorage.getItem("user")).userId
-}
-   
-    console.log(userData)
- 
-    const responsePost = await fetch(`api/user/`+userData.id, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userData)
-    });
-    //const res = await responsePost.json();
-  
-    if (responsePost.ok) {
-        alert("הפרטים עודכנו בהצלחה");
-        window.location.href = "login.html";
-    }
-    else {
-        alert("אחד או יותר מהפרטים אינם תקינים...")
+
+    const strength = await checkPassword();
+
+    if (strength >= 3) {
+
+        const userData = {
+            FirstName: document.getElementById("firstName").value,
+            LastName: document.getElementById("lastName").value,
+            Email: document.getElementById("userName").value,
+            Password: document.getElementById("password").value,
+            id:JSON.parse(sessionStorage.getItem("user")).userId
+        }
         
+        if (userData.FirstName == '' || userData.LastName == '' || userData.Email == '' || userData.Password == '') {
+            alert('כל השדות חובה!!')
+        }
+        else {
+
+            const responsePost = await fetch(`api/user/` + userData.id, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            });
+
+            if (responsePost.ok) {
+                alert("הפרטים עודכנו בהצלחה");
+                window.location.href = "login.html";
+            }
+            else {
+                alert("אחד או יותר מהפרטים אינם תקינים...")
+
+            }
+        }
+        }
+    else {
+        alert(":( הסיסמא לא מספיק חזקה");
     }
 }
 
 const checkPassword = async () => {
-  
+ 
     password = document.getElementById("password").value;
     const responsePost = await fetch('api/user/checkPassword', {
         method: 'POST',
@@ -101,11 +117,15 @@ const checkPassword = async () => {
         },
         body: JSON.stringify(password)
     })
+    
     const dataPost = await responsePost.json();
+   
     var color = ''
     document.getElementById("progress").setAttribute("value", dataPost)
-    if (dataPost <= 1)
+    if (dataPost <= 1) {
+      
         color = '#ff0000';
+    }
     else if (dataPost <= 3)
         color = 'blue'
     else
@@ -113,4 +133,6 @@ const checkPassword = async () => {
     document.getElementById("progress").style.setProperty("accent-color", color)
     document.getElementById("strentgh").innerHTML = "strength: " + dataPost;
     return parseInt(dataPost);
+
+
 }

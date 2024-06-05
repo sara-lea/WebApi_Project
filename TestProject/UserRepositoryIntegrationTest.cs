@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Microsoft.EntityFrameworkCore;
 using Repositories;
 using Repository;
 using System;
@@ -71,25 +72,97 @@ namespace TestProject
             Assert.Equal(user.Email, result.Email);
         }
 
+        //[Fact]
+        //public async Task Update_ValidIdAndUser_UpdatesAndReturnsUser()
+        //{
+        //    // Arrange
+        //    var user = new User { Firstname = "Update", Lastname = "User", Email = "update@ex.com", Password = "password" };
+        //    await _dbContext.Users.AddAsync(user);
+        //    await _dbContext.SaveChangesAsync();
+        //    int userId = user.UserId;
+
+        //    var updatedUser = new User { Firstname = "Updated", Lastname = "User", Email = "updated@ex.com", Password = "npassword" };
+
+        //    // Act
+        //    var result = await _userRepository.Update(userId, updatedUser);
+
+        //    // Assert
+        //    Assert.NotNull(result);
+        //    Assert.Equal(updatedUser.Firstname, result.Firstname);
+        //    Assert.Equal(updatedUser.Email, result.Email);
+        //}
+
+
+        //[Fact]
+        //public async Task Update_ValidIdAndUser_UpdatesAndReturnsUser()
+        //{
+        //    // Arrange
+        //    var existingUser = new User { Firstname = "Original", Lastname = "User", Email = "original@ex.com", Password = "password" };
+        //    await _dbContext.Users.AddAsync(existingUser);
+        //    await _dbContext.SaveChangesAsync();
+        //    int userId = existingUser.UserId;
+
+        //    var updatedUser = new User { Firstname = "Updated", Lastname = "User", Email = "updated@ex.com", Password = "password" };
+
+        //    // Act
+        //    var result = await _userRepository.Update(userId, updatedUser);
+
+        //    // Assert
+        //    Assert.NotNull(result);
+        //    Assert.Equal(userId, result.UserId); // Ensure the ID remains the same
+        //    Assert.Equal(updatedUser.Firstname, result.Firstname);
+        //    Assert.Equal(updatedUser.Lastname, result.Lastname);
+        //    Assert.Equal(updatedUser.Email, result.Email);
+        //    Assert.Equal(updatedUser.Password, result.Password);
+
+        //    var userInDb = await _dbContext.Users.FindAsync(userId);
+        //    Assert.NotNull(userInDb);
+        //    Assert.Equal(updatedUser.Firstname, userInDb.Firstname);
+        //    Assert.Equal(updatedUser.Lastname, userInDb.Lastname);
+        //    Assert.Equal(updatedUser.Email, userInDb.Email);
+        //    Assert.Equal(updatedUser.Password, userInDb.Password);
+        //}
+
+
         [Fact]
-        public async Task Update_ValidIdAndUser_UpdatesAndReturnsUser()
+        public async Task UpdateUser_ValidId_UpdatesUser()
         {
             // Arrange
-            var user = new User { Firstname = "Update", Lastname = "User", Email = "update@ex.com", Password = "password" };
-            await _dbContext.Users.AddAsync(user);
+            var originalUser = new User { Email = "test@example.com", Password = "Password", Firstname = "Original", Lastname = "User" };
+            await _dbContext.Users.AddAsync(originalUser);
             await _dbContext.SaveChangesAsync();
-            int userId = user.UserId;
+            var userId = originalUser.UserId;
 
-            var updatedUser = new User { Firstname = "Updated", Lastname = "User", Email = "updated@ex.com", Password = "npassword" };
+            // Detach the original user to simulate detached state
+            _dbContext.Entry(originalUser).State = EntityState.Detached;
+
+            var updatedUser = new User { UserId = userId, Email = "updated@example.com", Password = "NewPass", Firstname = "Updated", Lastname = "User" };
 
             // Act
             var result = await _userRepository.Update(userId, updatedUser);
 
+            // Reload the user from the database to confirm changes
+            var reloadedUser = await _dbContext.Users.FindAsync(userId);
+
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(updatedUser.Firstname, result.Firstname);
+            Assert.Equal(userId, result.UserId);  // Ensure the user's ID remains the same
             Assert.Equal(updatedUser.Email, result.Email);
+            Assert.Equal(updatedUser.Password, result.Password);
+            Assert.Equal(updatedUser.Firstname, result.Firstname);
+            Assert.Equal(updatedUser.Lastname, result.Lastname);
+
+            // Confirm changes in the database
+            Assert.Equal(updatedUser.Email, reloadedUser.Email);
+            Assert.Equal(updatedUser.Password, reloadedUser.Password);
+            Assert.Equal(updatedUser.Firstname, reloadedUser.Firstname);
+            Assert.Equal(updatedUser.Lastname, reloadedUser.Lastname);
+
+            // Clean up
+            _dbContext.Users.Remove(reloadedUser);
+            await _dbContext.SaveChangesAsync();
         }
+
     }
 }
 
