@@ -36,11 +36,16 @@ namespace Repositories
 
         public async Task<User> Update(int id, User user)
         {
-            User userToUpdate = await _UsersContext.Users.FindAsync(id);
-            if (userToUpdate == null)
-                return null;
+            //User userToUpdate = await _UsersContext.Users.FindAsync(id);
+            //if (userToUpdate == null)
+            //    return null;
+            //user.UserId = id;
+            //_UsersContext.Entry(userToUpdate).CurrentValues.SetValues(user);
+            //await _UsersContext.SaveChangesAsync();
+            //return user;
+
             user.UserId = id;
-            _UsersContext.Entry(userToUpdate).CurrentValues.SetValues(user);
+            _UsersContext.Update(user);
             await _UsersContext.SaveChangesAsync();
             return user;
         }

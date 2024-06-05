@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿<!--<!DOCTYPE html>
 <html>
 <head>
     <script src="../Scripts/Products.js"></script>
@@ -51,7 +51,7 @@
 
         </div>
     </header>
-  
+
     <div id="filters" class="Filters fixedVisible">
         <div class="ResultCount" style="position: absolute; top: 0px;">
             <a class="Clear" onclick="clearBasket()" href="">נקה הכל</a>
@@ -93,6 +93,87 @@
     <div id="PoductList">
 
     </div>
+    <div class="pagination">
+        <a href="#">&laquo;</a>
+        <div id="pages"></div>
+        <a href="#">&raquo;</a>
+    </div>
+</body>
+</html>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../Scripts/Products.js"></script>
+    <link href="../Style/Products.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <title>My Store</title>
+    <template id="temp-card">
+        <div class="card">
+            <div class="img-w">
+                <img src="tmp.jpg" alt="" style="width:100%">
+            </div>
+            <h1></h1>
+            <p class="price"></p>
+            <p class="name"></p>
+            <p class="description"></p>
+            <p><button id="basket">הוסף לסל</button></p>
+        </div>
+    </template>
+    <template id="temp-category">
+        <div class="cb checkbox">
+            <input type="checkbox" class="opt" id="" value="">
+            <label for="">
+                <span class="OptionName"></span>
+                <span class="Count"></span>
+            </label>
+        </div>
+    </template>
+</head>
+<body>
+    <header>
+        <div class="bar">
+            <span class="BagSummary MiniBagNonSecure">
+                <a href="shoppingbag.html">
+                    <div class="Icon">
+                        <div class="ItemCount">
+                            <span id="ItemsCountText">0</span>
+                        </div>
+                    </div>
+                </a>
+            </span>
+            <div class="Checkout">
+                <a class="goToCart" href="ShoppingBag.html">לקופה</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <aside id="filters" class="Filters fixedVisible">
+            <div class="ResultCount">
+                <a class="Clear" onclick="clearBasket()" href="">נקה הכל</a>
+                <div><span id="counter">0</span> מוצרים</div>
+            </div>
+            <div id="categoryList" class="filterBreak">
+                <span>בחירת קטגוריה</span>
+            </div>
+            <div id="nameFilter" class="nameFilter filterBreak">
+                <input type="text" id="nameSearch" placeholder="חיפוש לפי שם מוצר">
+                <button onclick="filterProducts()"><img src="Images/searchIcon.svg" alt="סמל חיפוש"></button>
+            </div>
+            <div id="priceRangeFilter" class="filterBreak">
+                <div>מחיר:</div>
+                <input type="text" id="minPrice" maxlength="9" placeholder="Min Price" class="priceInputText">
+                <span class="priceCurrency">₪</span>
+                <input type="text" id="maxPrice" maxlength="9" placeholder="Max Price" class="priceInputText">
+                <span class="priceCurrency">₪</span>
+                <button onclick="filterProducts()"><img src="Images/searchIcon.svg" alt="סמל חיפוש"></button>
+            </div>
+        </aside>
+        <section id="ProductList" class="products-container">
+            <!-- Products will be dynamically inserted here -->
+        </section>
+    </div>
+
     <div class="pagination">
         <a href="#">&laquo;</a>
         <div id="pages"></div>
