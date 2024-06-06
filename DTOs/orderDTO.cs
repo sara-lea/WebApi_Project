@@ -16,7 +16,6 @@ namespace DTOs
         public double OrderSum { get; set; }
 
         public int? UserId { get; set; }
-        //public string? UserName { get; set; }
 
         public virtual ICollection<orderItemDTO> OrderItems { get; set; } = new List<orderItemDTO>();
 

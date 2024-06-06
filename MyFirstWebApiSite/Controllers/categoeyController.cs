@@ -28,7 +28,7 @@ namespace MyFirstWebApiSite.Controllers
             List<categoryDTO> categoryDTO = _mapper.Map<List<Category>, List<categoryDTO>>(categories);
             if (categories == null)
                 return NoContent();
-            return Ok(categories);
+            return Ok(categoryDTO);
         }
 
     }

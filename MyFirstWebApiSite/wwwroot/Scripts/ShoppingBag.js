@@ -96,6 +96,7 @@ const placeOrder = async () => {
     if (responsePost.ok) {
         const dataPost = await responsePost.json();
         sessionStorage.removeItem('Basket')
+        debugger
         alert(`order number ${dataPost.orderId} was ordered successfully`)
         window.location.href='Products.html'
     }
