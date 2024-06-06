@@ -295,6 +295,29 @@ thead {
         background: #0056b3;
     }
 
+
+
+.item-row td.delete {
+    width: 50px;
+}
+
+    .item-row td.delete a.showText {
+        text-indent: 0;
+        background-image: url('../Images/icn-remove.png');
+        height: 24px;
+        width: 24px;
+        display: block;
+    }
+
+    .item-row td.delete a {
+        display: block;
+        background-repeat: no-repeat;
+        text-decoration: none;
+        text-align: center;
+        color: black;
+    }
+
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     .cart, #title h1, #title p, .nxbtn, .shopmore, table.items th, table.items td {

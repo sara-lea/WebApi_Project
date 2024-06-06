@@ -84,7 +84,6 @@ const placeOrder = async () => {
         UserId: JSON.parse(sessionStorage.getItem('user')).userId,
         OrderItems: orderItems,
     }
-    alert(orderItemToSend.OrderSum)
     const responsePost = await fetch('api/order', {
 
         method: 'POST',
@@ -96,9 +95,8 @@ const placeOrder = async () => {
 
     if (responsePost.ok) {
         const dataPost = await responsePost.json();
-
         sessionStorage.removeItem('Basket')
-        alert('Thank you buying in our shop...')
+        alert(`order number ${dataPost.orderId} was ordered successfully`)
         window.location.href='Products.html'
     }
 }
